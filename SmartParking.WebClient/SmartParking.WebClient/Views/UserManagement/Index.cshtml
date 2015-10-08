@@ -1,0 +1,45 @@
+﻿@*@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+                To learn more about ASP.NET MVC visit
+                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
+                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
+                If you have any questions about ASP.NET MVC visit
+                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
+            </p>
+        </div>
+    </section>
+}*@
+@{
+    ViewBag.Title = "User Management";
+}
+
+<h2>User Management</h2>
+
+<div id="dvError"></div>
+
+@*<input id="btnAddNewUser" type="button" value="Add New User" onclick="LoadAddNewUserForm()"/>
+
+<input id="btnEditUser" type="button" value="Edit User" onclick="LoadEditUserForm()"/>*@
+<br />
+@(Html.Kendo().Button()
+                    .Name("btnAddNewUser")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add New User")
+                    .Events(ev => ev.Click("LoadAddNewUserForm")))
+
+@(Html.Kendo().Button()
+                    .Name("btnEditUser")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Edit User")
+                    .Events(ev => ev.Click("LoadEditUserForm")))
+<br />
+<br />
+<div id="divUsersGrid">
+    @(Html.Partial("_UsersGrid"))
+</div>

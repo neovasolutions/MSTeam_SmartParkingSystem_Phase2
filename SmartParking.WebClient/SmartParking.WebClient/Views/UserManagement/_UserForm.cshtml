@@ -1,0 +1,157 @@
+﻿@model SmartParkingSystemAPI.Models.UserProfileModel
+<form id="userForm">
+    @Html.ValidationSummary(true)
+    @*@Html.AntiForgeryToken()*@
+    
+    <table>
+        <tr>
+            @if (ViewBag.Mode == "Edit")
+            {
+                @Html.HiddenFor(model => model.UserID)
+            }
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.FirstName)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.FirstName))
+                    @(Html.ValidationMessageFor(model => model.FirstName))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.LastName)
+                </div>
+                <div class="editor-field">
+
+                    @(Html.TextBoxFor(model => model.LastName))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Address1)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.Address1))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Address2)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.Address2))
+                </div>
+            </td>
+
+        </tr>
+
+
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.City)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.City))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.State)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.State))
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Pincode)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.Pincode))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MobileNumber)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.MobileNumber))
+                </div>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.EmailID)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.EmailID))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ActiveVehicleNumber)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.ActiveVehicleNumber))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.IsActive)
+                </div>
+                <div class="editor-field">
+                    @(Html.Kendo().CheckBoxFor(model => model.IsActive))
+                </div>
+            </td>
+        </tr>
+        
+        <tr style="height: 20px">
+
+        </tr>
+        
+        <tr>
+            <td colspan="1">
+                @if (ViewBag.Mode == "Edit")
+                {
+                    @*<input id="btnEditProduct" type="button" value="Update" onclick="UpdateUser()" />*@
+                      @(Html.Kendo().Button()
+                    .Name("btnEditProduct")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Update")
+                    .Events(ev => ev.Click("UpdateUser")))
+                }
+                else
+                {
+                    @*<input id="btnAddUser" type="button" value="Add User" onclick="AddUser()" />*@
+                     @(Html.Kendo().Button()
+                    .Name("btnAddUser")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add User")
+                    .Events(ev => ev.Click("AddUser")))
+                    
+                }
+                @*<input id="btnCancel" type="button" value="Cancel" onclick="CallGetPartial()" />*@
+                  @(Html.Kendo().Button()
+                    .Name("btnCancel")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Cancel")
+                    .Events(ev => ev.Click("CallGetPartial")))
+            </td>
+            <td></td>
+        </tr>
+
+    </table>
+</form>

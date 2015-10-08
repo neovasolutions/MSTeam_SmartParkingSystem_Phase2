@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="SmartParking.UCParkCommand"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot"  >
+        <Grid.Background>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                <GradientStop Color="Pink" Offset="0.5"></GradientStop>
+                <GradientStop Color="Transparent" Offset="0"></GradientStop>
+                <GradientStop Color="Transparent" Offset="1"></GradientStop>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Image Name="imgHome" Source="Resources\Images\Home2.png" Height="70" Margin="0,0,10,0" Tap="imgHome_Tap" ></Image>
+            <Image Name="imgPark" Source="Resources\Images\Car-Park.png" Height="70" Tap="imgPark_Tap"></Image>
+            <Image Name="imgUnPark" Source="Resources\Images\Car-unPark.png" Margin="10,0,10,0" Height="70" Tap="imgUnPark_Tap"></Image>
+            <Image Name="imgUsrProf" Source="Resources\Images\User.png" Height="70" Tap="imgUsrProf_Tap"></Image>
+        </StackPanel>
+    </Grid>
+</UserControl>

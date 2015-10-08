@@ -1,0 +1,61 @@
+﻿
+@model SmartParkingSystemAPI.Models.SlotModel
+<div id="divSlotAdd">
+    <h2>Slot Management</h2>
+@*<input id="btnAddSlots" type="button" value="Add Slot" onclick="LoadAddSlotForm()"/>
+<input id="btnEditSlots" type="button" value="Edit Slot" onclick="LoadEditSlot()"/>*@
+
+
+        <br /><br />
+ @(Html.Kendo().Button()
+                    .Name("btnAddSlots")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add Slot")
+                    .Events(ev => ev.Click("LoadAddSlotForm")))
+
+ @(Html.Kendo().Button()
+                    .Name("btnEditSlots")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Edit Slot")
+                    .Events(ev => ev.Click("LoadEditSlot")))
+<br /><br />
+
+
+
+
+ @(Html.Kendo().DropDownListFor(model=>model.ParkingID)
+                        .OptionLabel("Select Parking")
+                        .Name("ParkingID")
+                        .DataTextField("ParkingName")
+                        .DataValueField("ParkingID")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetParkings", "ParkingSlot");
+                                
+                            })
+                          .ServerFiltering(true);
+                        })
+                        .Events(ev=>ev.Change("SearchSlot"))
+                     )
+
+ 
+                      
+@*<input id="btnSearchSlots" type="button" value="Search Slot" onclick="SearchSlot()"/>*@
+                       
+@* @(Html.Kendo().Button()
+                    .Name("btnSearchSlots")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Search Slot")
+                    .Events(ev => ev.Click("SearchSlot")))*@
+<br /><br />              
+   
+    
+    
+
+           
+
+      
+    @(Html.Partial("_SlotMasterGrid"))
+</div>

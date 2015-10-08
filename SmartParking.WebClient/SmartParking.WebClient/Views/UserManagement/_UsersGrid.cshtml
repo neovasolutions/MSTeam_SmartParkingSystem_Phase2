@@ -1,0 +1,45 @@
+﻿
+    @(Html.Kendo().Grid<SmartParkingSystemAPI.Models.UserProfileModel>()  //Bind the grid to ViewBag.Products
+      .Name("allUsersGrid")
+      .DataSource(dataSource => dataSource
+
+          .Ajax()
+        .Model(model =>
+                {
+                    model.Id(usr => usr.UserID);
+                    model.Field(usr => usr.UserID).Editable(false);
+                })
+
+          .Read(read => read.Action("User_Read", "UserManagement")) // Set the action method which will return the data in JSON format
+          .Destroy(destroy => destroy.Action("User_Destroy", "UserManagement"))
+          )
+          .Events(events => events.Change("onChange"))
+      .Columns(columns =>
+      {
+          //columns.Bound(usr => usr.UserID);
+          columns.Bound(usr => usr.FirstName);
+          columns.Bound(usr => usr.Address1);
+          columns.Bound(usr => usr.Address2).Hidden();
+
+          columns.Bound(usr => usr.City);
+          columns.Bound(usr => usr.State).Hidden();
+          columns.Bound(usr => usr.Pincode);
+
+          columns.Bound(usr => usr.MobileNumber);
+          columns.Bound(usr => usr.EmailID);
+          columns.Bound(usr => usr.IsActive);
+
+          columns.Bound(usr => usr.ActiveVehicleNumber).Hidden();
+          columns.Command(commands =>
+            {
+
+                commands.Destroy();
+            }).Title("Commands").Width(200);
+      })
+      .Pageable() // Enable paging
+      .Sortable()
+      .Selectable(selectable => selectable
+                  .Mode(GridSelectionMode.Multiple))
+      .Filterable()
+)
+

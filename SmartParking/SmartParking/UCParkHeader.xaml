@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="SmartParking.UCParkHeader"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    d:DesignHeight="480" d:DesignWidth="480">
+    
+    <Grid x:Name="LayoutRoot">
+        <StackPanel x:Name="TitlePanel" Orientation="Horizontal" VerticalAlignment="Center"  Grid.Row="0" Margin="0,0,0,0">
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Pink" Offset="0"></GradientStop>
+                    <GradientStop Color="Transparent" Offset="0.5"></GradientStop>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <TextBlock Name="txbParkingTitle" Text="Parking Name" Foreground="Black" VerticalAlignment="Center" Style="{StaticResource stlTxtNormal}" Margin="10,0"/>
+            <TextBlock Text=":=>" VerticalAlignment="Center"  Foreground="Blue" Style="{StaticResource stlTxtNormal}" Margin="0,0"/>
+            <TextBlock Text="Parking Slots" VerticalAlignment="Center" Foreground="White" Margin="10,0,0,0" Style="{StaticResource stlTxtTitle}"/>
+            <Button Name="BtnRefresh" Click="BtnRefresh_Click" Style="{StaticResource RootButton}"  Height="50" Width="70">
+                <Button.Background>
+                    <ImageBrush ImageSource="Resources\Images\Refresh.png" ></ImageBrush>
+                </Button.Background>
+            </Button>
+        </StackPanel>
+    </Grid>
+    
+</UserControl>

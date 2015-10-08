@@ -1,0 +1,354 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SmartParkingModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SmartParkingModelStoreContainer">
+          <EntitySet Name="ParkingMaster" EntityType="SmartParkingModel.Store.ParkingMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ParkingSlotMaster" EntityType="SmartParkingModel.Store.ParkingSlotMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ParkingSlotTransaction" EntityType="SmartParkingModel.Store.ParkingSlotTransaction" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SlotMaster" EntityType="SmartParkingModel.Store.SlotMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserProfile" EntityType="SmartParkingModel.Store.UserProfile" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ParkingSlotTransaction_SlotMaster" Association="SmartParkingModel.Store.FK_ParkingSlotTransaction_SlotMaster">
+            <End Role="SlotMaster" EntitySet="SlotMaster" />
+            <End Role="ParkingSlotTransaction" EntitySet="ParkingSlotTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingSlotTransaction_UserProfile" Association="SmartParkingModel.Store.FK_ParkingSlotTransaction_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfile" />
+            <End Role="ParkingSlotTransaction" EntitySet="ParkingSlotTransaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SlotMaster_ParkingMaster" Association="SmartParkingModel.Store.FK_SlotMaster_ParkingMaster">
+            <End Role="ParkingMaster" EntitySet="ParkingMaster" />
+            <End Role="SlotMaster" EntitySet="SlotMaster" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ParkingMaster">
+          <Key>
+            <PropertyRef Name="ParkingID" />
+          </Key>
+          <Property Name="ParkingID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ParkingAddress" Type="nvarchar" MaxLength="100" />
+          <Property Name="ParkingTemplateName" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="NumberOfSlots" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ParkingSlotMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ParkSlotID" Type="int" Nullable="false" />
+          <Property Name="SlotName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="BarcodeNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsOccupied" Type="bit" />
+          <Property Name="OccupiedBy" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ParkInTime" Type="datetime2" />
+          <Property Name="ParkOutTime" Type="datetime2" />
+        </EntityType>
+        <EntityType Name="ParkingSlotTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SlotID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="ParkingInTime" Type="datetime" />
+          <Property Name="ParkingOutTime" Type="datetime" />
+          <Property Name="VehicleNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SlotMaster">
+          <Key>
+            <PropertyRef Name="SlotID" />
+          </Key>
+          <Property Name="SlotID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingID" Type="int" Nullable="false" />
+          <Property Name="SlotNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="IsAcquired" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pincode" Type="nvarchar" MaxLength="50" />
+          <Property Name="MobileNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmailID" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="ActiveVehicleNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_ParkingSlotTransaction_SlotMaster">
+          <End Role="SlotMaster" Type="SmartParkingModel.Store.SlotMaster" Multiplicity="1" />
+          <End Role="ParkingSlotTransaction" Type="SmartParkingModel.Store.ParkingSlotTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SlotMaster">
+              <PropertyRef Name="SlotID" />
+            </Principal>
+            <Dependent Role="ParkingSlotTransaction">
+              <PropertyRef Name="SlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingSlotTransaction_UserProfile">
+          <End Role="UserProfile" Type="SmartParkingModel.Store.UserProfile" Multiplicity="1" />
+          <End Role="ParkingSlotTransaction" Type="SmartParkingModel.Store.ParkingSlotTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ParkingSlotTransaction">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SlotMaster_ParkingMaster">
+          <End Role="ParkingMaster" Type="SmartParkingModel.Store.ParkingMaster" Multiplicity="1" />
+          <End Role="SlotMaster" Type="SmartParkingModel.Store.SlotMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingMaster">
+              <PropertyRef Name="ParkingID" />
+            </Principal>
+            <Dependent Role="SlotMaster">
+              <PropertyRef Name="ParkingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SmartParkingModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SmartParkingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ParkingMasters" EntityType="SmartParkingModel.ParkingMaster" />
+          <EntitySet Name="ParkingSlotMasters" EntityType="SmartParkingModel.ParkingSlotMaster" />
+          <EntitySet Name="ParkingSlotTransactions" EntityType="SmartParkingModel.ParkingSlotTransaction" />
+          <EntitySet Name="SlotMasters" EntityType="SmartParkingModel.SlotMaster" />
+          <EntitySet Name="UserProfiles" EntityType="SmartParkingModel.UserProfile" />
+          <AssociationSet Name="FK_SlotMaster_ParkingMaster" Association="SmartParkingModel.FK_SlotMaster_ParkingMaster">
+            <End Role="ParkingMaster" EntitySet="ParkingMasters" />
+            <End Role="SlotMaster" EntitySet="SlotMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingSlotTransaction_SlotMaster" Association="SmartParkingModel.FK_ParkingSlotTransaction_SlotMaster">
+            <End Role="SlotMaster" EntitySet="SlotMasters" />
+            <End Role="ParkingSlotTransaction" EntitySet="ParkingSlotTransactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ParkingSlotTransaction_UserProfile" Association="SmartParkingModel.FK_ParkingSlotTransaction_UserProfile">
+            <End Role="UserProfile" EntitySet="UserProfiles" />
+            <End Role="ParkingSlotTransaction" EntitySet="ParkingSlotTransactions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ParkingMaster">
+          <Key>
+            <PropertyRef Name="ParkingID" />
+          </Key>
+          <Property Name="ParkingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="ParkingAddress" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ParkingTemplateName" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="NumberOfSlots" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SlotMasters" Relationship="SmartParkingModel.FK_SlotMaster_ParkingMaster" FromRole="ParkingMaster" ToRole="SlotMaster" />
+        </EntityType>
+        <EntityType Name="ParkingSlotMaster">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ParkSlotID" Type="Int32" Nullable="false" />
+          <Property Name="SlotName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="BarcodeNo" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsOccupied" Type="Boolean" />
+          <Property Name="OccupiedBy" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ParkInTime" Type="DateTime" Precision="7" />
+          <Property Name="ParkOutTime" Type="DateTime" Precision="7" />
+        </EntityType>
+        <EntityType Name="ParkingSlotTransaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SlotID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="ParkingInTime" Type="DateTime" Precision="3" />
+          <Property Name="ParkingOutTime" Type="DateTime" Precision="3" />
+          <Property Name="VehicleNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="SlotMaster" Relationship="SmartParkingModel.FK_ParkingSlotTransaction_SlotMaster" FromRole="ParkingSlotTransaction" ToRole="SlotMaster" />
+          <NavigationProperty Name="UserProfile" Relationship="SmartParkingModel.FK_ParkingSlotTransaction_UserProfile" FromRole="ParkingSlotTransaction" ToRole="UserProfile" />
+        </EntityType>
+        <EntityType Name="SlotMaster">
+          <Key>
+            <PropertyRef Name="SlotID" />
+          </Key>
+          <Property Name="SlotID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParkingID" Type="Int32" Nullable="false" />
+          <Property Name="SlotNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="IsAcquired" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ParkingMaster" Relationship="SmartParkingModel.FK_SlotMaster_ParkingMaster" FromRole="SlotMaster" ToRole="ParkingMaster" />
+          <NavigationProperty Name="ParkingSlotTransactions" Relationship="SmartParkingModel.FK_ParkingSlotTransaction_SlotMaster" FromRole="SlotMaster" ToRole="ParkingSlotTransaction" />
+        </EntityType>
+        <EntityType Name="UserProfile">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Address1" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Address2" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="State" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Pincode" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="MobileNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="EmailID" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="ActiveVehicleNumber" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="ParkingSlotTransactions" Relationship="SmartParkingModel.FK_ParkingSlotTransaction_UserProfile" FromRole="UserProfile" ToRole="ParkingSlotTransaction" />
+        </EntityType>
+        <Association Name="FK_SlotMaster_ParkingMaster">
+          <End Role="ParkingMaster" Type="SmartParkingModel.ParkingMaster" Multiplicity="1" />
+          <End Role="SlotMaster" Type="SmartParkingModel.SlotMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ParkingMaster">
+              <PropertyRef Name="ParkingID" />
+            </Principal>
+            <Dependent Role="SlotMaster">
+              <PropertyRef Name="ParkingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingSlotTransaction_SlotMaster">
+          <End Role="SlotMaster" Type="SmartParkingModel.SlotMaster" Multiplicity="1" />
+          <End Role="ParkingSlotTransaction" Type="SmartParkingModel.ParkingSlotTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SlotMaster">
+              <PropertyRef Name="SlotID" />
+            </Principal>
+            <Dependent Role="ParkingSlotTransaction">
+              <PropertyRef Name="SlotID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ParkingSlotTransaction_UserProfile">
+          <End Role="UserProfile" Type="SmartParkingModel.UserProfile" Multiplicity="1" />
+          <End Role="ParkingSlotTransaction" Type="SmartParkingModel.ParkingSlotTransaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserProfile">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="ParkingSlotTransaction">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SmartParkingModelStoreContainer" CdmEntityContainer="SmartParkingEntities">
+          <EntitySetMapping Name="ParkingMasters">
+            <EntityTypeMapping TypeName="SmartParkingModel.ParkingMaster">
+              <MappingFragment StoreEntitySet="ParkingMaster">
+                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
+                <ScalarProperty Name="ParkingName" ColumnName="ParkingName" />
+                <ScalarProperty Name="ParkingAddress" ColumnName="ParkingAddress" />
+                <ScalarProperty Name="ParkingTemplateName" ColumnName="ParkingTemplateName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="NumberOfSlots" ColumnName="NumberOfSlots" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSlotMasters">
+            <EntityTypeMapping TypeName="SmartParkingModel.ParkingSlotMaster">
+              <MappingFragment StoreEntitySet="ParkingSlotMaster">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParkSlotID" ColumnName="ParkSlotID" />
+                <ScalarProperty Name="SlotName" ColumnName="SlotName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BarcodeNo" ColumnName="BarcodeNo" />
+                <ScalarProperty Name="IsOccupied" ColumnName="IsOccupied" />
+                <ScalarProperty Name="OccupiedBy" ColumnName="OccupiedBy" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ParkInTime" ColumnName="ParkInTime" />
+                <ScalarProperty Name="ParkOutTime" ColumnName="ParkOutTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ParkingSlotTransactions">
+            <EntityTypeMapping TypeName="SmartParkingModel.ParkingSlotTransaction">
+              <MappingFragment StoreEntitySet="ParkingSlotTransaction">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="SlotID" ColumnName="SlotID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ParkingInTime" ColumnName="ParkingInTime" />
+                <ScalarProperty Name="ParkingOutTime" ColumnName="ParkingOutTime" />
+                <ScalarProperty Name="VehicleNumber" ColumnName="VehicleNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SlotMasters">
+            <EntityTypeMapping TypeName="SmartParkingModel.SlotMaster">
+              <MappingFragment StoreEntitySet="SlotMaster">
+                <ScalarProperty Name="SlotID" ColumnName="SlotID" />
+                <ScalarProperty Name="ParkingID" ColumnName="ParkingID" />
+                <ScalarProperty Name="SlotNumber" ColumnName="SlotNumber" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="IsAcquired" ColumnName="IsAcquired" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserProfiles">
+            <EntityTypeMapping TypeName="SmartParkingModel.UserProfile">
+              <MappingFragment StoreEntitySet="UserProfile">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Pincode" ColumnName="Pincode" />
+                <ScalarProperty Name="MobileNumber" ColumnName="MobileNumber" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="ActiveVehicleNumber" ColumnName="ActiveVehicleNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

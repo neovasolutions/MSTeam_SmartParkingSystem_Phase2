@@ -1,0 +1,95 @@
+﻿<phone:PhoneApplicationPage xmlns:SmartParking="clr-namespace:SmartParking" 
+    x:Class="SmartParking.UserProfile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True" Loaded="PhoneApplicationPage_Loaded">
+    
+    <phone:PhoneApplicationPage.Resources>
+        
+    </phone:PhoneApplicationPage.Resources>
+    
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources\Images\CarParking.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="TitlePanel" Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,0">
+            <StackPanel.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Pink" Offset="0"></GradientStop>
+                    <GradientStop Color="Transparent" Offset="0.5"></GradientStop>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <TextBlock Text="Smart Parking" Foreground="Black"  Style="{StaticResource stlTxtNormal}" Margin="10,0"/>
+            <TextBlock Text=":=>" Foreground="Blue" Style="{StaticResource stlTxtNormal}" Margin="0,0"/>
+            <TextBlock Text="User Profile" Foreground="White" Margin="10,0,0,0" Style="{StaticResource stlTxtTitle}"/>
+        </StackPanel>
+        <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" >User Name</TextBlock>
+            <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource TxtBorder}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Name="txtUserName"></TextBox>
+                    <TextBlock Grid.Column="1" Foreground="Red">*</TextBlock>
+                </Grid>
+            </Border>
+            <TextBlock Grid.Row="1" Grid.Column="0">Address</TextBlock>
+            <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtAddress"></TextBox></Border>
+            <TextBlock Grid.Row="2" Grid.Column="0">City</TextBlock>
+            <Border Grid.Row="2" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtCity"></TextBox></Border>
+            <TextBlock Grid.Row="3" Grid.Column="0">Pincode</TextBlock>
+            <Border Grid.Row="3" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtPincode"></TextBox></Border>
+            <TextBlock Grid.Row="4" Grid.Column="0">Email ID</TextBlock>
+            <Border Grid.Row="4" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtEmailID"></TextBox></Border>
+            <TextBlock Grid.Row="5" Grid.Column="0">Mobile No</TextBlock>
+            <Border Grid.Row="5" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtMobileNo"></TextBox></Border>
+            <TextBlock Grid.Row="6" Grid.Column="0">Active Vehicle No</TextBlock>
+            <Border Grid.Row="6" Grid.Column="1" Style="{StaticResource TxtBorder}"><TextBox Name="txtVehclNo"></TextBox></Border>
+        </Grid>
+        <Grid Grid.Row="5" >
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                    <GradientStop Color="Pink" Offset="0.5"></GradientStop>
+                    <GradientStop Color="Transparent" Offset="0"></GradientStop>
+                    <GradientStop Color="Transparent" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Grid.Background>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Name="imgHome" Source="Resources\Images\Home2.png" Height="70" Margin="0,0,10,0" Tap="imgHome_Tap" ></Image>
+                <Image Name="imgBack" Source="Resources\Images\Car-Park.png" Margin="0,0,5,0" Height="70" Tap="imgBack_Tap"></Image>
+                <Image Name="imgSave" Source="Resources\Images\SaveBack.png" Margin="5,0,0,0" Height="70" Tap="imgSave_Tap"></Image>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</phone:PhoneApplicationPage>

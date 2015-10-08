@@ -1,0 +1,50 @@
+﻿@(Html.Kendo().Grid<SmartParkingSystemAPI.Models.SlotTransactionModel>() 
+      .Name("allSlotsTransactionGridForSlots")
+      .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read
+              .Action("Log_ReadBySlot", "UserLogByParking")
+              .Data("SearchReadDataSlotTransactionForSlots")
+          ) 
+      ) 
+      .Events(events => events.Change("onChangesSlotTransactionGrid"))     
+      .Columns(columns =>
+      {
+          //columns.Bound(transc=>transc.TransactionID);
+          //columns.Bound(transc => transc.SlotID);          
+          //columns.Bound(transc => transc.UserID);
+          //columns.Bound(transc => transc.UserName);
+          columns.Bound(transc => transc.ParkingName);    
+          columns.Bound(transc => transc.SlotName);
+          columns.Bound(transc => transc.ParkingInTime).Format("{0:dd-MMM-yyyy hh:mm:ss tt}");
+          columns.Bound(transc => transc.ParkingOutTime).Format("{0:dd-MMM-yyyy hh:mm:ss tt}");
+          //columns.Bound(transc => transc.VehicleNumber);        
+          
+          
+              
+      })
+      .Pageable() // Enable paging
+      .Sortable()
+      .Selectable(selectable => selectable
+                  .Mode(GridSelectionMode.Multiple))
+      .Filterable()
+)
+
+<script type="text/javascript">
+    function SearchReadDataSlotTransactionForSlots() {
+        var dropdownlistUsr = $("#UserID").data("kendoDropDownList");
+        var dropdownlistSlot = $("#SlotID").data("kendoDropDownList");
+        var selected = $("input[type='radio'][name='rdoLog']:checked");
+
+        return {
+            //userID: dropdownlistUsr.value(),
+            //slotID:dropdownlistSlot.value()
+            userID: $("#UserID").val(),
+            slotID: $("#SlotID").val(),
+            rdoLogByUser: selected.val()
+
+        };
+    }
+
+    
+</script>

@@ -1,0 +1,103 @@
+﻿@{
+    ViewBag.Title = "User Log By Parking";
+}
+<script>
+    function filterSlots() {
+        return {
+            parkingID: $("#ParkingID").val()
+        };
+    }
+    function SearchUserLogForSlot() {
+        //if ($("#SlotID").val() == null || $("#SlotID").val() == undefined || $("#SlotID").val() == "") {
+        //    $("#divErrorPleaseSelectSlotName").html("Please Select User Name & Slot Name to see Log!");
+        //    return;
+        //}
+        //else
+            $("#divErrorPleaseSelectSlotName").text("");
+        $('#allSlotsTransactionGridForSlots').data('kendoGrid').dataSource.read();
+    }
+</script>
+<h2>User Log By Parking</h2>
+<br />
+ 
+<div id="divErrorPleaseSelectSlotName" style="color:red"></div>
+<div>
+    @(Html.Kendo().RadioButton().Name("rdoLogByUser")
+    .Label("Log by User").Value("logByUser")
+    .Checked(true)
+    .HtmlAttributes(new{name="rdoLog"})    
+    )
+    <br />
+    @(Html.Kendo().RadioButton().Name("rdoLogBySlot")
+    .Label("Log by Parking Slot").Value("logBySlot")
+    .HtmlAttributes(new{name="rdoLog"}))
+</div>
+<br />
+<div id="divLogByUser">
+@(Html.Kendo().DropDownList()
+                        .OptionLabel("Select User")
+                        .Name("UserID")
+                        .DataTextField("FirstName")
+                        .DataValueField("UserID")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetAllUsers", "UserLog");
+
+                            })
+                          .ServerFiltering(true);
+                        })
+                     )
+
+
+
+</div>
+<br />
+<div id="divLogBySlot">
+@(Html.Kendo().DropDownList()
+.Name("ParkingID")
+.OptionLabel("Select Parking")
+.DataTextField("ParkingName")
+.DataValueField("ParkingID")
+.Enable(false)
+.DataSource(datasource =>
+{
+    datasource.Read(read =>
+    {
+        read.Action("GetAllParkings", "UserlogByParking");
+    })
+    .ServerFiltering(true);
+}))
+
+
+@(Html.Kendo().DropDownList()
+              .Name("SlotID")
+              .OptionLabel("Select Slot Name")
+              //.HtmlAttributes(new { style = "width:300px" })
+              .DataTextField("SlotNumber")
+              .DataValueField("SlotID")
+              .DataSource(source =>
+              {
+                  source.Read(read =>
+                  {
+                      read.Action("GetSlotNames", "UserlogByParking")
+                          .Data("filterSlots");
+                  })
+                  .ServerFiltering(true);
+              })
+              .Enable(false)
+              .AutoBind(false)
+              .CascadeFrom("ParkingID"))
+</div>
+<br />
+
+@*<input type="button" value="search" onclick="SearchUserLogForSlot()" />*@
+@(Html.Kendo().Button()
+                    .Name("btnSearchLog")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Show User Log")
+                    .Events(ev => ev.Click("SearchUserLogForSlot")))
+<br /><br />
+
+@(Html.Partial("_ParkingSlotTransactionGridBySlot"))

@@ -1,0 +1,26 @@
+﻿@(Html.Kendo().Grid<SmartParkingSystemAPI.Models.SlotModel>()  //Bind the grid to ViewBag.Products
+      .Name("allSlotsGrid")
+      .DataSource(dataSource => dataSource
+        .Ajax()
+        .Read(read => read
+              .Action("Slot_Read", "ParkingSlot")
+              .Data("SearchReadData")
+          ) 
+      )      
+      .Events(events => events.Change("onChangeslotGrid"))
+      .Columns(columns =>
+      {
+          //columns.Bound(slot => slot.SlotID);
+          columns.Bound(slot => slot.SlotNumber);
+          //columns.Bound(slot => slot.ParkingID);
+          columns.Bound(slot => slot.IsActive);
+          columns.Bound(slot => slot.IsAcquired);          
+           
+      })
+      .Pageable() // Enable paging
+      .Sortable()
+      .Selectable(selectable => selectable
+                  .Mode(GridSelectionMode.Multiple))
+      .Filterable()
+)
+ 

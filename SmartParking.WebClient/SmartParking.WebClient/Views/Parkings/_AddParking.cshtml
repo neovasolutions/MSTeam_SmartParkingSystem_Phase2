@@ -1,0 +1,88 @@
+﻿@model SmartParkingSystemAPI.Models.ParkingModel
+
+<form id="parkingForm">
+    @Html.ValidationSummary(true)
+    @*@Html.AntiForgeryToken()*@
+    <table>
+        <tr>
+            @if (ViewBag.Mode == "Edit")
+            {
+                @Html.HiddenFor(model => model.ParkingID)
+            }
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ParkingName)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.ParkingName))
+                    @(Html.ValidationMessageFor(model => model.ParkingName))
+                </div>
+            </td>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ParkingAddress)
+                </div>
+                <div class="editor-field">
+
+                    @(Html.TextBoxFor(model => model.ParkingAddress))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ParkingTemplateName)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.ParkingTemplateName))
+                </div>
+            </td>
+
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.NumberOfSlots)
+                </div>
+                <div class="editor-field">
+                    @(Html.TextBoxFor(model => model.NumberOfSlots))
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.IsActive)
+                </div>
+                <div class="editor-field">
+                    @(Html.Kendo().CheckBoxFor(model => model.IsActive))
+                </div>
+            </td>
+        </tr>
+    </table>
+<br /><br />
+    @if (ViewBag.Mode == "Edit")
+    {
+@*<input id="btnEditProduct" type="button" value="Update Parking" onclick="UpdateParking()" />*@
+        @(Html.Kendo().Button()
+                    .Name("btnEditProduct")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Update Parking")
+                    .Events(ev => ev.Click("UpdateParking")))
+    }
+    else
+    {
+@*<input id="btnAddParking" type="button" value="Add Parking" onclick="AddParking()" />*@
+        @(Html.Kendo().Button()
+                    .Name("btnAddParking")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add Parking")
+                    .Events(ev => ev.Click("AddParking")))
+                    
+    }
+    @*<input id="btnCancel" type="button" value="Cancel" onclick="CallGetPartialForParking()" />*@
+    @(Html.Kendo().Button()
+                    .Name("btnCancel")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Cancel")
+                    .Events(ev => ev.Click("CallGetPartialForParking")))
+
+</form>

@@ -1,0 +1,34 @@
+﻿@(Html.Kendo().Grid<SmartParkingSystemAPI.Models.ParkingModel>()  //Bind the grid to ViewBag.Products
+      .Name("allParkingsGrid")
+      .DataSource(dataSource => dataSource
+        .Ajax()
+        //.Model(model =>
+        //        {
+        //            model.Id(parking => parking.SlotID);
+        //            model.Field(parking => parking.SlotID).Editable(false);
+        //        })
+
+          .Read(read => read.Action("Parkings_Read", "Parkings")) // Set the action method which will return the data in JSON format
+          //.Destroy(destroy => destroy.Action("Slot_Destroy", "ParkingSlot"))
+          )
+          .Events(events => events.Change("onChangeparkingGrid"))
+      .Columns(columns =>
+      {
+          //columns.Bound(parking => parking.ParkingID);
+          columns.Bound(parking => parking.ParkingName);
+          columns.Bound(parking => parking.ParkingAddress);
+          columns.Bound(parking => parking.ParkingTemplateName);
+          columns.Bound(parking => parking.IsActive);
+          columns.Bound(parking => parking.NumberOfSlots);
+          
+          //columns.Command(commands =>
+          //  {
+          //      commands.Destroy();
+          //  }).Title("Commands").Width(200);
+      })
+      .Pageable() // Enable paging
+      .Sortable()
+      .Selectable(selectable => selectable
+                  .Mode(GridSelectionMode.Multiple))
+      .Filterable()
+)

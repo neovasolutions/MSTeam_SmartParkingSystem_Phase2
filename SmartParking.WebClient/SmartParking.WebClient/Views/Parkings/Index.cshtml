@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Parkings";
+}
+
+<h2>Parking Management</h2>
+
+@*<input id="btnParkingAdd" type="button" value="Add Parking" onclick="LoadParkingAdd()" />
+<input id="btnParkingEdit" type="button" value="Edit Parking" onclick="LoadParkingEdit()" />*@
+
+
+
+
+<br />
+ @(Html.Kendo().Button()
+                    .Name("btnParkingAdd")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add Parking")
+                    .Events(ev => ev.Click("LoadParkingAdd")))
+
+ @(Html.Kendo().Button()
+                    .Name("btnParkingEdit")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Edit Parking")
+                    .Events(ev => ev.Click("LoadParkingEdit")))
+<br /><br />
+
+
+
+<div id="divParkings">
+    @(Html.Partial("_ParkingsGrid"))
+</div>

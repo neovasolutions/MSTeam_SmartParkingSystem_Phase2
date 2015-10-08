@@ -1,0 +1,118 @@
+﻿@model SmartParkingSystemAPI.Models.SlotModel
+@{
+    ViewBag.Title = "_AddSlot";
+}
+@if (ViewBag.Mode == "Edit")
+{ 
+    <h2>Slot Edit Form</h2> 
+}
+else
+{
+    <h2>Slot Add Form</h2> 
+}
+<form id="slotForm">
+    @Html.ValidationSummary(true)
+    @*@Html.AntiForgeryToken()*@
+    <table>
+        <tr>
+            @if (ViewBag.Mode == "Edit")
+            {
+                @Html.HiddenFor(model => model.SlotID)
+            }
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ParkingID)
+                </div>
+                <div class="editor-field">
+                    @(Html.Kendo().DropDownListFor(model => model.ParkingID)
+                        .OptionLabel("Select Parking")
+                        .Name("ParkingID")
+                        .DataTextField("ParkingName")
+                        .DataValueField("ParkingID")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetParkings", "ParkingSlot");
+
+                            })
+                          .ServerFiltering(true);
+                        })
+                     )
+
+
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.SlotNumber)
+                </div>
+                <div class="editor-field">
+                    @Html.Kendo().TextBoxFor(model => model.SlotNumber)
+                </div>
+            </td>
+        </tr>
+        <tr>
+            @if (ViewBag.Mode == "Edit")
+            {
+                <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IsAcquired)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Kendo().CheckBoxFor(model => model.IsAcquired)
+                    </div>
+                </td>
+            }
+            <td>
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.IsActive)
+                    </div>
+                    <div class="editor-field">
+                        @Html.Kendo().CheckBoxFor(model => model.IsActive)
+                    </div>
+                </td>
+        </tr>
+      
+        <tr>
+           <td>
+               &nbsp&nbsp
+           </td>
+        </tr>
+         
+        <tr>
+           @* <td colspan="1"></td>*@
+            <td colspan="1">
+                @if (ViewBag.Mode == "Edit")
+                {
+@*<input id="btnEditSlot" type="button" value="Update Parking" onclick="UpdateSlot()" />*@
+                    @(Html.Kendo().Button()
+                    .Name("btnEditSlot")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Update Parking")
+                    .Events(ev => ev.Click("UpdateSlot")))
+                }
+                else
+                {
+@*<input id="btnAddSlot" type="button" value="Add Slot" onclick="AddSlot()" />*@
+                    @(Html.Kendo().Button()
+                    .Name("btnAddSlot")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Add Slot")
+                    .Events(ev => ev.Click("AddSlot")))
+                    
+                }
+                @*<input id="btnCancelSlot" type="button" value="Cancel" onclick="CallGetPartialForSlotManagement()" />*@
+                @(Html.Kendo().Button()
+                    .Name("btnCancelSlot")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Cancel")
+                    .Events(ev => ev.Click("CallGetPartialForSlotManagement")))
+            </td>
+
+        </tr>
+
+    </table>
+</form>

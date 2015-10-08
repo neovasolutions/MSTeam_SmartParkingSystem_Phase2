@@ -1,0 +1,29 @@
+# Compiled source #
+###################
+*.com
+*.exe
+*.o
+*.so
+
+######## Windows Suo Files.
+*.suo
+
+
+
+### Folders to be Ignored ####
+###########################
+/obj/debug/*
+/obj/*
+/bin/*
+/bin/debug/*
+
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

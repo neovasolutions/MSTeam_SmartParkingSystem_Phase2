@@ -1,0 +1,35 @@
+﻿@model SmartParkingSystemAPI.Models.SlotTransactionModel
+@{
+    //ViewBag.Title = "Index";
+    ViewBag.Title = "User Log";
+}
+
+<h2>User Log</h2>
+<br />
+@(Html.Kendo().DropDownListFor(model => model.UserID)
+                        .OptionLabel("Select User")
+                        .Name("UserID")
+                        .DataTextField("FirstName")
+                        .DataValueField("UserID")
+                        .DataSource(source =>
+                        {
+                            source.Read(read =>
+                            {
+                                read.Action("GetAllUsers", "UserLog");
+
+                            })
+                          .ServerFiltering(true);
+                        })
+                     )
+
+
+@*<input type="button" value="Show Log" onclick="SearchTransaction()" />*@
+
+
+ @(Html.Kendo().Button()
+                    .Name("btnShowLog")
+                    .HtmlAttributes(new { type = "button" })
+                    .Content("Show Log")
+                    .Events(ev => ev.Click("SearchTransaction")))
+<br /><br />
+@(Html.Partial("_ParkingSlotTransactionGrid"))

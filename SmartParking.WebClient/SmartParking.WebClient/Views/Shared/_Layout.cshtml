@@ -1,0 +1,144 @@
+﻿@*<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    @Styles.Render("~/Content/kendo/css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundles/kendo")
+    <script src="~/Scripts/common.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("your logo here", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("User Log", "Index", "UserLog")</li>
+                        <li>@Html.ActionLink("User Log By Parking", "Index", "UserLogByParking")</li>
+                        <li>@Html.ActionLink("User Management", "Index", "UserManagement")</li>
+                        <li>@Html.ActionLink("Parking Management", "Index", "Parkings")</li>
+                        <li>@Html.ActionLink("Slot Management", "Index", "ParkingSlot")</li>
+                        <li>@Html.ActionLink("About", "About", "HomeWebClient")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "HomeWebClient")</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+        @RenderSection("featured", required: false)
+        <section class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
+    </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
+            </div>
+        </div>
+    </footer>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>*@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title - Smart Parking </title>
+    @Styles.Render("~/Content/kendo/css")
+    @*@Styles.Render("~/Content/css") *@
+    @Scripts.Render("~/bundles/jquery")
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/NewCss/ddmenu.css" rel="stylesheet" />
+    <script src="~/NewCss/ddmenu.js"></script>
+    <style>
+        body {
+            background: #eee url(NewCss/ddmenu-bg.jpg) no-repeat center 0px;
+            padding-top: 90px;
+        }
+    </style>
+    <script src="/Scripts/jquery.validate.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.js"></script>
+    @Scripts.Render("~/bundles/kendo")
+    <script src="~/Scripts/common.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <nav id="ddmenu">
+        <div class="menu-icon"></div>
+        <ul>
+            <li class="full-width">
+                <span class="top-heading">Parking Management</span>
+                <i class="caret"></i>
+                <div class="dropdown">
+                    <div class="dd-inner">
+                        <div class="column">
+                            <h3>Parking</h3>
+                            @Html.ActionLink("Parking Management", "Index", "Parkings")
+                            @Html.ActionLink("Slot Management", "Index", "ParkingSlot")
+
+                        </div>
+                       @* <div class="column">
+                            <h3>Etiam Massa</h3>
+                            <a href="#">Sed interdum</a>
+                            <a href="#">Fringilla congue</a>
+
+                        </div>*@
+                        <div class="column column260 mayHide">
+                            <br />
+                            <img src="NewCss/img2.jpg" style="height:150px; width:200px"/>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <li class="full-width">
+                <span class="top-heading">User Management</span>
+                <i class="caret"></i>
+                <div class="dropdown">
+                    <div class="dd-inner">
+                        <div class="column">
+                            <h3>User</h3>
+                            @Html.ActionLink("User Management", "Index", "UserManagement")
+                            @Html.ActionLink("User Log By Parking", "Index", "UserLogByParking")
+                        </div>
+                        
+                        <div class="column column260 mayHide">
+                            <br />
+                            <img src="NewCss/img1.jpg" style="height:150px; width:200px" />
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div id="body" style="margin-top:100px; margin-left:150px; margin-right:150px;">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+    </div>
+</body> 
+</html>
+
